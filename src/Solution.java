@@ -14,7 +14,8 @@ public class Solution {
         }
     }
 
-    public static int maxDepth(TreeNode root) {
+    // Bottom-up solution
+    /*public static int maxDepth(TreeNode root) {
 
         if(root == null) return 0;
 
@@ -22,10 +23,33 @@ public class Solution {
             int rDepth = maxDepth(root.right);
 
             return Math.max(lDepth, rDepth) + 1;
+    }*/
+
+    static int answer = 0;
+
+    // Bottom-down solution
+    public static void maxDepth(TreeNode root, int depth) {
+
+        if(depth == 0) answer = 0;
+        if(root == null) return;
+
+        if(root.left == null && root.right == null) {
+            answer = Math.max(answer, depth);
+        }
+        maxDepth(root.left, depth + 1);
+        maxDepth(root.right, depth + 1);
+    }
+
+    // recursive solution
+    public static boolean isSymmetric(TreeNode root) {
+
+
+        return false;
     }
 
     public static void main(String[] args) {
 
+        // Max Depth
         /*TreeNode treeNode3 = new TreeNode(3);
         TreeNode treeNode2 = new TreeNode(2, treeNode3, null);
         TreeNode treeNode1 = new TreeNode(1, null, treeNode2);
@@ -44,7 +68,9 @@ public class Solution {
 
         TreeNode treeNodeF = new TreeNode(6, treeNodeB, treeNodeG);
 
-        System.out.println(maxDepth(treeNodeF));
+        //System.out.println(maxDepth(treeNodeF);
+        maxDepth(treeNodeF, 0);
+        System.out.println(answer);
 
         TreeNode treeNode7 = new TreeNode(7);
         TreeNode treeNode15 = new TreeNode(15);
@@ -53,8 +79,27 @@ public class Solution {
         TreeNode treeNode9 = new TreeNode(9);
 
         TreeNode treeNode3 = new TreeNode(3, treeNode9, treeNode20);
-        System.out.println(maxDepth(treeNode3));
-        System.out.println(maxDepth(new TreeNode()));
-        System.out.println(maxDepth(null));
+        //System.out.println(maxDepth(treeNode3);
+        maxDepth(treeNode3, 0);
+        System.out.println(answer);
+        //System.out.println(maxDepth(new TreeNode()));
+        maxDepth(new TreeNode(), 0);
+        System.out.println(answer);
+        //System.out.println(maxDepth(null));
+        maxDepth(null, 0);
+        System.out.println(answer);
+
+        // Is symmetric
+        /*TreeNode treeNode3 = new TreeNode(3);
+        TreeNode treeNode4 = new TreeNode(4);
+
+        TreeNode treeNode2a = new TreeNode(2, treeNode3, treeNode4);
+        TreeNode treeNode2b = new TreeNode(2, treeNode4, treeNode3);
+        TreeNode treeNode1 = new TreeNode(1, treeNode2a, treeNode2b);
+        System.out.println(isSymmetric(treeNode1));     // expected: true
+
+        TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
+        TreeNode treeNode1b = new TreeNode(1, treeNode2c, treeNode2c);
+        System.out.println(isSymmetric(treeNode1));     // expected: false*/
     }
 }
