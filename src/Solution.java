@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Solution {
 
     //Definition for a binary tree node.
@@ -40,11 +42,39 @@ public class Solution {
         maxDepth(root.right, depth + 1);
     }
 
+    static Queue<Integer> leftQueue = new LinkedList<>();
+    static Queue<Integer> rightQueue = new LinkedList<>();
+    static HashMap<Integer, Integer> leftHash = new HashMap<>();
+    static HashMap<Integer, Integer> rightHash = new HashMap<>();
+
+    private static HashMap<Integer, Integer> leftChild(TreeNode root) {
+
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        hash.put(root.left.val, root.right.val);
+        System.out.println("Hash left: " + hash);
+        return hash;
+    }
+    private static HashMap<Integer, Integer> rightChild(TreeNode root) {
+
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        hash.put(root.right.val, root.left.val);
+        System.out.println("Hash right: " + hash);
+        return hash;
+    }
     // recursive solution
     public static boolean isSymmetric(TreeNode root) {
 
+        if(root == null) return false;
 
-        return false;
+        while (leftChild(root).equals(rightChild(root))) {
+            System.out.println(root.val);
+            isSymmetric(root.left);
+            isSymmetric(root.right);
+        }
+
+        System.out.println("End recursion");
+
+        return true;
     }
 
     public static void main(String[] args) {
@@ -55,7 +85,7 @@ public class Solution {
         TreeNode treeNode1 = new TreeNode(1, null, treeNode2);
         System.out.println(maxDepth(treeNode1));*/
 
-        TreeNode treeNodeC = new TreeNode(3);
+        /*TreeNode treeNodeC = new TreeNode(3);
         TreeNode treeNodeE = new TreeNode(5);
         TreeNode treeNodeH = new TreeNode(8);
 
@@ -87,10 +117,10 @@ public class Solution {
         System.out.println(answer);
         //System.out.println(maxDepth(null));
         maxDepth(null, 0);
-        System.out.println(answer);
+        System.out.println(answer);*/
 
         // Is symmetric
-        /*TreeNode treeNode3 = new TreeNode(3);
+        TreeNode treeNode3 = new TreeNode(3);
         TreeNode treeNode4 = new TreeNode(4);
 
         TreeNode treeNode2a = new TreeNode(2, treeNode3, treeNode4);
@@ -98,7 +128,7 @@ public class Solution {
         TreeNode treeNode1 = new TreeNode(1, treeNode2a, treeNode2b);
         System.out.println(isSymmetric(treeNode1));     // expected: true
 
-        TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
+        /*TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
         TreeNode treeNode1b = new TreeNode(1, treeNode2c, treeNode2c);
         System.out.println(isSymmetric(treeNode1));     // expected: false*/
     }
