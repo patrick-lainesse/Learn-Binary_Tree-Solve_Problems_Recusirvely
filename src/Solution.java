@@ -42,39 +42,19 @@ public class Solution {
         maxDepth(root.right, depth + 1);
     }
 
-    static Queue<Integer> leftQueue = new LinkedList<>();
-    static Queue<Integer> rightQueue = new LinkedList<>();
-    static HashMap<Integer, Integer> leftHash = new HashMap<>();
-    static HashMap<Integer, Integer> rightHash = new HashMap<>();
-
-    private static HashMap<Integer, Integer> leftChild(TreeNode root) {
-
-        HashMap<Integer, Integer> hash = new HashMap<>();
-        hash.put(root.left.val, root.right.val);
-        System.out.println("Hash left: " + hash);
-        return hash;
-    }
-    private static HashMap<Integer, Integer> rightChild(TreeNode root) {
-
-        HashMap<Integer, Integer> hash = new HashMap<>();
-        hash.put(root.right.val, root.left.val);
-        System.out.println("Hash right: " + hash);
-        return hash;
-    }
-    // recursive solution
+    // https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/536/
     public static boolean isSymmetric(TreeNode root) {
 
-        if(root == null) return false;
+        return isMirror(root, root);
+    }
 
-        while (leftChild(root).equals(rightChild(root))) {
-            System.out.println(root.val);
-            isSymmetric(root.left);
-            isSymmetric(root.right);
-        }
+    private static boolean isMirror(TreeNode left, TreeNode right) {
 
-        System.out.println("End recursion");
-
-        return true;
+        if(left == null && right == null) return true;
+        if(left == null || right == null) return false;
+        return (left.val == right.val)
+                && isMirror(left.right, right.left)
+                && isMirror(left.left, right.right);
     }
 
     public static void main(String[] args) {
@@ -128,8 +108,8 @@ public class Solution {
         TreeNode treeNode1 = new TreeNode(1, treeNode2a, treeNode2b);
         System.out.println(isSymmetric(treeNode1));     // expected: true
 
-        /*TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
+        TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
         TreeNode treeNode1b = new TreeNode(1, treeNode2c, treeNode2c);
-        System.out.println(isSymmetric(treeNode1));     // expected: false*/
+        System.out.println(isSymmetric(treeNode1b));     // expected: false
     }
 }
