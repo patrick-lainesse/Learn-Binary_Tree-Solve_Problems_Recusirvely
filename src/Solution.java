@@ -29,7 +29,7 @@ public class Solution {
 
     static int answer = 0;
 
-    // Bottom-down solution
+    // top-down solution
     public static void maxDepth(TreeNode root, int depth) {
 
         if(depth == 0) answer = 0;
@@ -57,7 +57,66 @@ public class Solution {
                 && isMirror(left.left, right.right);
     }
 
+    //https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/537/
+              /*5
+             / \
+             4   8
+             /   / \
+             11  13  4
+             /  \      \
+             7    2      1*/
+
+    static int pathSum;
+    // using a top-down solution to pass parameters
+    public static boolean hasPathSum(TreeNode root, int sum) {
+
+        if (root == null) return pathSum == sum;
+        if (root.left == null && root.right == null) {
+            if (root.val + pathSum == sum) return true;
+        } else {
+            pathSum += root.val;
+            if(pathSum >= sum) {
+                pathSum = 0;
+            } else {
+                hasPathSum(root.left, sum);
+                hasPathSum(root.right, sum);
+            }
+        }
+        return sum == pathSum;
+    }
+
     public static void main(String[] args) {
+
+        // Path Sum
+        TreeNode treeNode7 = new TreeNode(7);
+        TreeNode treeNode2 = new TreeNode(2);
+        TreeNode treeNode1 = new TreeNode(1);
+
+        TreeNode treeNode11 = new TreeNode(11, treeNode7, treeNode2);
+        TreeNode treeNode13 = new TreeNode(13);
+        TreeNode treeNode4b = new TreeNode(4, null, treeNode1);
+
+        TreeNode treeNode4a = new TreeNode(4, treeNode11, null);
+        TreeNode treeNode8 = new TreeNode(8, treeNode13, treeNode4b);
+        TreeNode treeNode5 = new TreeNode(5, treeNode4a, treeNode8);
+
+        System.out.println("pathsum before: " + pathSum);
+        pathSum = 0;
+        System.out.println(hasPathSum(treeNode5, 22)); // expected: true
+        System.out.println("pathsum after: " + pathSum);
+
+        // Is symmetric
+        /*TreeNode treeNode3 = new TreeNode(3);
+        TreeNode treeNode4 = new TreeNode(4);
+
+        TreeNode treeNode2a = new TreeNode(2, treeNode3, treeNode4);
+        TreeNode treeNode2b = new TreeNode(2, treeNode4, treeNode3);
+        TreeNode treeNode1 = new TreeNode(1, treeNode2a, treeNode2b);
+        System.out.println(isSymmetric(treeNode1));     // expected: true
+
+        TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
+        TreeNode treeNode1b = new TreeNode(1, treeNode2c, treeNode2c);
+        System.out.println(isSymmetric(treeNode1b));     // expected: false*/
 
         // Max Depth
         /*TreeNode treeNode3 = new TreeNode(3);
@@ -76,40 +135,6 @@ public class Solution {
         TreeNode treeNodeB = new TreeNode(2, treeNodeA, treeNodeD);
         TreeNode treeNodeG = new TreeNode(7, null, treeNodeI);
 
-        TreeNode treeNodeF = new TreeNode(6, treeNodeB, treeNodeG);
-
-        //System.out.println(maxDepth(treeNodeF);
-        maxDepth(treeNodeF, 0);
-        System.out.println(answer);
-
-        TreeNode treeNode7 = new TreeNode(7);
-        TreeNode treeNode15 = new TreeNode(15);
-
-        TreeNode treeNode20 = new TreeNode(20, treeNode15, treeNode7);
-        TreeNode treeNode9 = new TreeNode(9);
-
-        TreeNode treeNode3 = new TreeNode(3, treeNode9, treeNode20);
-        //System.out.println(maxDepth(treeNode3);
-        maxDepth(treeNode3, 0);
-        System.out.println(answer);
-        //System.out.println(maxDepth(new TreeNode()));
-        maxDepth(new TreeNode(), 0);
-        System.out.println(answer);
-        //System.out.println(maxDepth(null));
-        maxDepth(null, 0);
-        System.out.println(answer);*/
-
-        // Is symmetric
-        TreeNode treeNode3 = new TreeNode(3);
-        TreeNode treeNode4 = new TreeNode(4);
-
-        TreeNode treeNode2a = new TreeNode(2, treeNode3, treeNode4);
-        TreeNode treeNode2b = new TreeNode(2, treeNode4, treeNode3);
-        TreeNode treeNode1 = new TreeNode(1, treeNode2a, treeNode2b);
-        System.out.println(isSymmetric(treeNode1));     // expected: true
-
-        TreeNode treeNode2c = new TreeNode(2, null, treeNode3);
-        TreeNode treeNode1b = new TreeNode(1, treeNode2c, treeNode2c);
-        System.out.println(isSymmetric(treeNode1b));     // expected: false
+        TreeNode treeNodeF = new TreeNode(6, treeNodeB, treeNodeG); */
     }
 }
