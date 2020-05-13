@@ -58,31 +58,14 @@ public class Solution {
     }
 
     //https://leetcode.com/explore/learn/card/data-structure-tree/17/solve-problems-recursively/537/
-              /*5
-             / \
-             4   8
-             /   / \
-             11  13  4
-             /  \      \
-             7    2      1*/
-
-    static int pathSum;
     // using a top-down solution to pass parameters
     public static boolean hasPathSum(TreeNode root, int sum) {
 
-        if (root == null) return pathSum == sum;
-        if (root.left == null && root.right == null) {
-            if (root.val + pathSum == sum) return true;
-        } else {
-            pathSum += root.val;
-            if(pathSum >= sum) {
-                pathSum = 0;
-            } else {
-                hasPathSum(root.left, sum);
-                hasPathSum(root.right, sum);
-            }
+        if (root == null) {
+            return false;
         }
-        return sum == pathSum;
+        if (root.left == null && root.right == null) return sum == root.val;
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
 
     public static void main(String[] args) {
@@ -100,10 +83,8 @@ public class Solution {
         TreeNode treeNode8 = new TreeNode(8, treeNode13, treeNode4b);
         TreeNode treeNode5 = new TreeNode(5, treeNode4a, treeNode8);
 
-        System.out.println("pathsum before: " + pathSum);
-        pathSum = 0;
         System.out.println(hasPathSum(treeNode5, 22)); // expected: true
-        System.out.println("pathsum after: " + pathSum);
+        System.out.println(hasPathSum(treeNode1, 0)); // expected: false
 
         // Is symmetric
         /*TreeNode treeNode3 = new TreeNode(3);
